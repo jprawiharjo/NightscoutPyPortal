@@ -45,20 +45,15 @@ def stale_data(timestamp):
     return last_check > stale_time
     
 def get_bg_color(val, timestamp):
-    # If the data is stale then we don't want to rely on it as an alert mech but we do need
-    # to know about it.
-    if stale_data(timestamp):
-        return PURPLE
-    else:    
-        if val > CRIT_HIGH:
-            return RED
-        elif val > WARN_HIGH:
-            return YELLOW
-        elif val < CRIT_LOW:
-            return RED
-        elif val < WARN_LOW:
-            return ORANGE
-        return GREEN
+    if val > CRIT_HIGH:
+        return RED
+    elif val > WARN_HIGH:
+        return YELLOW
+    elif val < CRIT_LOW:
+        return RED
+    elif val < WARN_LOW:
+        return ORANGE
+    return GREEN
 
 def text_transform_bg(val):
     return str(val) + ' mg/dl'
@@ -84,7 +79,7 @@ def text_transform_direction(val):
     
 def data_age(val):
     last_check = (time.time() -  int(val/1000)) /60
-    return f"{last_check} minutes ago"
+    return f"{last_check:.2f} min"
 
 # the current working directory (where this file is)
 cwd = ("/"+__file__).rsplit('/', 1)[0]
