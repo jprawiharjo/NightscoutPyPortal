@@ -73,7 +73,7 @@ def text_transform_direction(val):
     if val == "DoubleUp":
         return "↑↑"
     if val == "DoubleDown":
-        return "↑↑"
+        return "↓↓"
     if val == "SingleDown":
         return "↓"
     if val == "FortyFiveDown":
