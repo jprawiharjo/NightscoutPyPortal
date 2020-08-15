@@ -28,23 +28,8 @@ WARN_HIGH = 180
 CRIT_LOW = 60
 WARN_LOW = 80
 
-def stale_data(timestamp):
-
-    # stale results is the age at which results are no longer considered valid.
-    # This is in minutes
-    stale_time = 10
-
-    # Get the current timestamp in GMT
-    epoch_time = time.time()
-    print("Epoch GMT time:", epoch_time)
-
-    # The number of minutes ago that the data was last checked
-    last_check = (epoch_time - int(timestamp/1000)) /60
-    print("Data age: ", last_check)
-
-    return last_check > stale_time
     
-def get_bg_color(val, timestamp):
+def get_bg_color(val):
     if val > CRIT_HIGH:
         return RED
     elif val > WARN_HIGH:
@@ -121,7 +106,7 @@ while True:
         value = pyportal.fetch()
         print("Getting time from internet!")
         pyportal.get_local_time(location=secrets["timezone"])
-        pyportal.set_background(get_bg_color(value[0], value[2]))
+        pyportal.set_background(get_bg_color(value[0]))
         print("Response is", value)
 
     except RuntimeError as e:
